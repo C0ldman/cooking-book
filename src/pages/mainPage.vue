@@ -1,22 +1,46 @@
 <template>
-  <v-container id="recieptsList" class="flex-column align-content-space-between">
-    <recipeDescriptionElement class="reciept-item " v-for="(element, idx) in database" :element="element" :key="idx"></recipeDescriptionElement>
-    <v-btn class="add-button green darken-2" to="new">Add new</v-btn>
-  </v-container>
+  <v-row justify="center">
+    <v-container id="recieptsList" class="flex-column align-content-space-between">
+      <recipeDescriptionElement v-for="(element, index) in database" :element="element" @click.native="viewFull(element)" :key="index"></recipeDescriptionElement>
+      <v-btn class="add-button green darken-2" to="new">Add new</v-btn>
+    </v-container>
+
+    <v-container v-if="selected">
+      <elementView v-if="selected" :element="selected"></elementView>
+      <v-btn v-if="selected" class="add-button green darken-2" @click="editSelected">Edit</v-btn>
+      <v-btn v-if="selected" class="add-button green darken-2" @click="closeFull">Close</v-btn>
+    </v-container>
+    <div id="load"></div>
+  </v-row>
 </template>
 
 <script>
   import {db} from '../main'
   import recipeDescriptionElement from "@/components/recipeDescriptionElement"
+  import elementView from "@/components/elementView"
+  import router from "../plugins/router";
 
   export default {
     name: 'mainPage',
-    components:{
-      recipeDescriptionElement
+    components: {
+      recipeDescriptionElement,
+      elementView
     },
     data() {
       return {
-        database: []
+        database: [],
+        selected: null
+      }
+    },
+    methods: {
+      viewFull: function (element) {
+        this.selected = element;
+      },
+      closeFull: function () {
+        this.selected = null
+      },
+      editSelected: function () {
+        router.push({name: 'new',params: this.selected })
       }
     },
     firestore() {
@@ -32,10 +56,8 @@
   #recieptsList {
     width: 200px;
     height: 100%;
-    margin:0;
+    margin: 0;
   }
-
-
 
   .add-button {
     padding-top: 20px;

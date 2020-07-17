@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import mainPage from '@/pages/mainPage'
-import newReciept from "@/pages/newReciept";
+import newRecipe from "@/pages/newRecipe";
 
 Vue.use(Router)
 
@@ -15,7 +15,8 @@ export default new Router({
     {
       path: '/new',
       name: 'new',
-      component: newReciept
+      component: newRecipe,
+      props:true
     }
   ]
 })
