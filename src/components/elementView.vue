@@ -9,12 +9,17 @@
         <div>{{element.description}}</div>
       </v-card-text>
     </v-card>
+    <ingredientsList :ingredients="element.ingredients"></ingredientsList>
   </v-container>
 </template>
 
 <script>
+  import ingredientsList from "@/components/ingredientsList";
   export default {
     name: "elementView",
+    components: {
+      ingredientsList
+    },
     props: {
       element: Object
     },
@@ -26,7 +31,4 @@
 </script>
 
 <style scoped>
-  #viewWrapper {
-    height: 70%;
-  }
 </style>

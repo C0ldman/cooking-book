@@ -4,9 +4,9 @@
       <v-text-field v-model="element.name" :counter="100" placeholder="Recip name" label="Name"></v-text-field>
       <v-file-input small-chips accept="image/*" placeholder="Select your image" label="Image"></v-file-input>
       <v-textarea solo name="description" v-model="element.description" placeholder="Recip description" label="Description"></v-textarea>
-            <ingredientsList :ingredients="element.ingredients"></ingredientsList>
+            <ingredientsList :ingredients="element.ingredients" :editable=true></ingredientsList>
     </v-form>
-    <v-btn class="green darken-2" @click="addRecip">Save</v-btn>
+    <v-btn class="green darken-2" @click.native="addRecip">Save</v-btn>
     <v-btn class="green darken-2" to="/">Back</v-btn>
   </div>
 </template>
@@ -21,12 +21,12 @@
     },
     data() {
       return {
-        element:{},
+        element:{}
       }
     },
     methods: {
       addRecip() {
-        console.log('add');
+        console.log(this.element.name);
       }
     },
     mounted() {

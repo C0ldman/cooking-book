@@ -27,7 +27,7 @@
 
 <style scoped>
   #wrapper {
-    margin: 10px 0;
+    margin:0 0 20px 20px;
     padding: 5px;
   }
 </style>

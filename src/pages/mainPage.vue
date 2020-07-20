@@ -5,12 +5,11 @@
       <v-btn class="add-button green darken-2" to="new">Add new</v-btn>
     </v-container>
 
-    <v-container v-if="selected">
+    <div id="fullViewWrapper" class="d-flex flex-column justify-center" v-if="selected">
       <elementView v-if="selected" :element="selected"></elementView>
       <v-btn v-if="selected" class="add-button green darken-2" @click="editSelected">Edit</v-btn>
       <v-btn v-if="selected" class="add-button green darken-2" @click="closeFull">Close</v-btn>
-    </v-container>
-    <div id="load"></div>
+    </div>
   </v-row>
 </template>
 
@@ -54,12 +53,15 @@
 
 <style scoped>
   #recieptsList {
-    width: 200px;
+    width: 250px;
     height: 100%;
     margin: 0;
   }
-
   .add-button {
     padding-top: 20px;
+  }
+
+  #fullViewWrapper {
+    width: 60%;
   }
 </style>
