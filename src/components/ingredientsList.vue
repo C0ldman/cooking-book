@@ -76,6 +76,7 @@
           };
           this.ingredients.push(newIngredient);
         };
+        this.$emit('ingredientsUpdate',this.ingredients)
         this.editor = false;
         this.newName='';
         this.newQuantity='';
@@ -84,6 +85,7 @@
       removeIngredient(element){
         let ind = this.ingredients.findIndex((item)=>item.ingredientName==element.ingredientName);
         this.ingredients.splice(ind,1);
+        this.$emit('ingredientsUpdate',this.ingredients)
       },
       clearNewIngredient() {
         this.editor = false;

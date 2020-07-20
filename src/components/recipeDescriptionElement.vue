@@ -1,10 +1,9 @@
 <template>
-  <v-card id="wrapper">
-    <v-img class="white--text align-end" height="200px" aspect-ratio="1.7" :src="element.imageSrc || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
-      <v-card-title>{{ element.name }}</v-card-title>
+  <v-card class="itemsWrapper">
+    <v-img height="200px" aspect-ratio="1.7" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
     </v-img>
-    <v-card-text class="text--primary">
-      <div>{{element.description}}</div>
+    <v-card-text>
+      {{element.name}}
     </v-card-text>
   </v-card>
 </template>
@@ -14,19 +13,12 @@
     name: "recipeDescriptionElement",
     props: {
       element: Object
-    },
-    data(){
-      return {
-
-      }
-    },
-    methods:{
     }
   }
 </script>
 
 <style scoped>
-  #wrapper {
+  .itemsWrapper {
     margin:0 0 20px 20px;
     padding: 5px;
   }

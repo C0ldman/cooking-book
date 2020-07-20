@@ -6,40 +6,58 @@
     </v-container>
 
     <div id="fullViewWrapper" class="d-flex flex-column justify-center" v-if="selected">
-      <elementView v-if="selected" :element="selected"></elementView>
-      <v-btn v-if="selected" class="add-button green darken-2" @click="editSelected">Edit</v-btn>
-      <v-btn v-if="selected" class="add-button green darken-2" @click="closeFull">Close</v-btn>
+      <elementView :element="selected"></elementView>
+      <v-btn class="add-button green darken-2" @click="editSelected()">Edit</v-btn>
+      <v-btn class="add-button green darken-2" @click="closeFull">Close</v-btn>
+      <v-btn class="add-button red darken-2" @click.native="removeRecipe(selected)">Remove</v-btn>
     </div>
+    <div v-if="!selected">
+      Select recipe
+    </div>
+    <preloader :show="preloader"></preloader>
   </v-row>
 </template>
 
 <script>
-  import {db} from '../main'
+  import {db, storage} from '../main'
   import recipeDescriptionElement from "@/components/recipeDescriptionElement"
   import elementView from "@/components/elementView"
   import router from "../plugins/router";
+  import preloader from "@/components/preloader"
 
   export default {
     name: 'mainPage',
     components: {
       recipeDescriptionElement,
-      elementView
+      elementView,
+      preloader
     },
     data() {
       return {
         database: [],
-        selected: null
+        selected: null,
+        preloader: false
       }
     },
     methods: {
-      viewFull: function (element) {
+      viewFull(element) {
         this.selected = element;
       },
-      closeFull: function () {
+      closeFull() {
         this.selected = null
       },
-      editSelected: function () {
-        router.push({name: 'new',params: this.selected })
+      editSelected() {
+        router.push({name: 'new', params: {element: this.selected}})
+      },
+      removeRecipe(element) {
+        db.collection('reciepts').doc(element.id).delete().then(async () => {
+          this.preloader = true;
+          storage.child(`${element.id}`).listAll().then(async (images) => {
+            await storage.child(`${element.id}/${images.items[0].name}`).delete();
+            this.preloader = false;
+            this.selected = null;
+          });
+        });
       }
     },
     firestore() {
@@ -57,6 +75,7 @@
     height: 100%;
     margin: 0;
   }
+
   .add-button {
     padding-top: 20px;
   }
@@ -64,4 +83,6 @@
   #fullViewWrapper {
     width: 60%;
   }
+
+
 </style>
