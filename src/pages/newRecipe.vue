@@ -34,29 +34,43 @@
       }
     },
     methods: {
-      addRecip () {
-        this.preloader=true;
+      addRecip() {
+        this.preloader = true;
         if (this.element.id) {
-          db.collection('reciepts').doc(this.element.id).update({
-            name: this.element.name,
-            description: this.element.description,
-            ingredients: this.element.ingredients,
-            imageRef: this.element.imageRef
-          }).then(()=>this.preloader=false);
-
+          this.updateRecipe();
         } else {
-          db.collection('reciepts').add({name: this.element.name, description: this.element.description, ingredients: this.element.ingredients})
-            .then(async data => {
-              await storage.child(`${data.id}/${this.newImage.name}`).put(this.newImage);
-              let url = await storage.child(`${data.id}/${this.newImage.name}`).getDownloadURL();
-              await db.collection('reciepts').doc(data.id).update({imageRef: url});
-              this.preloader=false;
-              this.$router.push('/');
-            })
+          this.addNewRecipe();
         }
       },
       updateIngredients(data) {
         this.element.ingredients = data;
+      },
+      async updateImage(elementId, image) {
+        await storage.child(`${elementId}/${image.name}`).put(image);
+        let url = await storage.child(`${elementId}/${image.name}`).getDownloadURL();
+        await db.collection('reciepts').doc(elementId).update({imageRef: url});
+      },
+      updateRecipe() {
+        db.collection('reciepts').doc(this.element.id).update({
+          name: this.element.name,
+          description: this.element.description,
+          ingredients: this.element.ingredients
+        }).then(async () => {
+          if (this.newImage) {
+            await this.updateImage(this.element.id, this.newImage);
+            this.preloader = false;
+          } else {
+            this.preloader = false;
+          }
+        });
+      },
+      addNewRecipe() {
+        db.collection('reciepts').add({name: this.element.name, description: this.element.description, ingredients: this.element.ingredients})
+          .then(async data => {
+            await this.updateImage(data.id, this.newImage)
+            this.preloader = false;
+            this.$router.push('/');
+          })
       }
     },
     mounted() {

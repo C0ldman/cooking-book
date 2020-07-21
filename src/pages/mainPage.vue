@@ -5,15 +5,15 @@
       <v-btn class="add-button green darken-2" to="new">Add new</v-btn>
     </v-container>
 
-    <div id="fullViewWrapper" class="d-flex flex-column justify-center" v-if="selected">
+    <v-container id="fullViewWrapper" class="d-flex flex-column justify-center" v-if="selected">
       <elementView :element="selected"></elementView>
       <v-btn class="add-button green darken-2" @click="editSelected()">Edit</v-btn>
       <v-btn class="add-button green darken-2" @click="closeFull">Close</v-btn>
       <v-btn class="add-button red darken-2" @click.native="removeRecipe(selected)">Remove</v-btn>
-    </div>
-    <div v-if="!selected">
+    </v-container>
+    <v-container v-if="!selected">
       Select recipe
-    </div>
+    </v-container>
     <preloader :show="preloader"></preloader>
   </v-row>
 </template>
