@@ -95,7 +95,7 @@
     overflow-y: scroll;
   }
 
-  .active {
+  #itemsWrapper .active {
     border: 2px solid #03a9f4;
   }
 </style>
