@@ -34,12 +34,16 @@
       }
     },
     methods: {
-      addRecip() {
+      async addRecip() {
         this.preloader = true;
         if (this.element.id) {
-          this.updateRecipe();
+          await this.updateRecipe();
+          this.preloader = false;
+          this.$router.push('/');
         } else {
-          this.addNewRecipe();
+          await this.addNewRecipe();
+          this.preloader = false;
+          this.$router.push('/');
         }
       },
       updateIngredients(data) {
@@ -50,7 +54,7 @@
         let url = await storage.child(`${elementId}/${image.name}`).getDownloadURL();
         await db.collection('reciepts').doc(elementId).update({imageRef: url});
       },
-      updateRecipe() {
+      async updateRecipe() {
         db.collection('reciepts').doc(this.element.id).update({
           name: this.element.name,
           description: this.element.description,
@@ -58,18 +62,13 @@
         }).then(async () => {
           if (this.newImage) {
             await this.updateImage(this.element.id, this.newImage);
-            this.preloader = false;
-          } else {
-            this.preloader = false;
           }
         });
       },
-      addNewRecipe() {
+      async addNewRecipe() {
         db.collection('reciepts').add({name: this.element.name, description: this.element.description, ingredients: this.element.ingredients})
           .then(async data => {
             await this.updateImage(data.id, this.newImage)
-            this.preloader = false;
-            this.$router.push('/');
           })
       }
     },
