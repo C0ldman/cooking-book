@@ -4,10 +4,10 @@
       <template v-slot:default>
         <thead>
         <tr>
-          <th class="text-left">Name</th>
-          <th class="text-left">Quantity</th>
-          <th class="text-left" v-if="editable"></th>
-          <th class="text-left" v-if="editable"></th>
+          <th>Ingredient</th>
+          <th>Quantity</th>
+          <th v-if="editable"></th>
+          <th v-if="editable"></th>
         </tr>
         </thead>
         <tbody>

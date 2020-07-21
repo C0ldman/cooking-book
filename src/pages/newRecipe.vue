@@ -1,15 +1,19 @@
 <template>
-  <div id="recipEditor">
-    <v-form ref="form">
-      <v-text-field v-model="element.name" :counter="100" placeholder="Recip name" label="Name"></v-text-field>
-      <v-file-input small-chips v-model="newImage" accept="image/*" placeholder="Select your image" label="Image"></v-file-input>
-      <v-textarea solo name="description" v-model="element.description" placeholder="Recip description" label="Description"></v-textarea>
-      <ingredientsList :ingredients="element.ingredients" :editable=true @ingredientsUpdate="updateIngredients"></ingredientsList>
-    </v-form>
-    <v-btn class="green darken-2" @click.native="addRecip">Save</v-btn>
-    <v-btn class="green darken-2" to="/">Back</v-btn>
+  <v-container>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-col :cols="10">
+        <v-text-field v-model="element.name" :counter="100" placeholder="Recip name" label="Name"></v-text-field>
+        <v-file-input small-chips v-model="newImage" accept="image/*" placeholder="Select your image" label="Image"></v-file-input>
+        <v-textarea solo name="description" v-model="element.description" placeholder="Recip description" label="Description"></v-textarea>
+        <ingredientsList :ingredients="element.ingredients" :editable=true @ingredientsUpdate="updateIngredients"></ingredientsList>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+    <v-btn @click.native="addRecip">Save</v-btn>
+    <v-btn to="/">Back</v-btn>
     <preloader :show="preloader"></preloader>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -60,7 +64,7 @@
           description: this.element.description,
           ingredients: this.element.ingredients
         }).then(async () => {
-          if (this.newImage) {
+          if (this.newImage.name) {
             await this.updateImage(this.element.id, this.newImage);
           }
         });
@@ -79,9 +83,4 @@
     watch: {}
   }
 </script>
-
-<style scoped>
-  #recipEditor {
-    padding: 20px;
-  }
-</style>
+<style scoped></style>

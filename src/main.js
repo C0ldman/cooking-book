@@ -23,7 +23,7 @@ export const db = firebase.firestore();
 export const storage = firebase.storage().ref();
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
-Vue.use(vuetify);
+
 
 new Vue({
   el: '#app',

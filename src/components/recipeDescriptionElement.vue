@@ -1,6 +1,6 @@
 <template>
   <v-card class="itemsWrapper">
-    <v-img height="200px" aspect-ratio="1.7" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
+    <v-img contain aspect-ratio="1" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
     </v-img>
     <v-card-text>
       {{element.name}}

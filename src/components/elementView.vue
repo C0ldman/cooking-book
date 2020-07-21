@@ -1,11 +1,10 @@
 <template>
-  <v-container class="viewWrapper">
-    <v-card class="elementView">
-      <v-img class="white--text align-end" height="300px" aspect-ratio="1.7"
-        :src="element.imageRef">
-        <v-card-title class="white">{{ element.name }}</v-card-title>
+  <v-container>
+    <v-card loading>
+      <v-img height="300px" aspect-ratio="1.7" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
+        <v-card-title class="title" >{{ element.name }}</v-card-title>
       </v-img>
-      <v-card-text class="text--primary">
+      <v-card-text>
         <div>{{element.description}}</div>
       </v-card-text>
     </v-card>
@@ -28,26 +27,12 @@
       return {
         imageRef:''
       }
-    },
-    methods: {
-      getRecipeImage() {
-        let path = storage.child(this.element.id);
-        path.listAll().then((data) => {
-          path.child(data.items[0].name).getDownloadURL().then(data => this.imageRef = data);
-        });
-      }
-    },
-    mounted() {
-      // let path = storage.child(this.element.id);
-      // path.listAll().then((data) => {
-      //   path.child(data.items[0].name).getDownloadURL().then(data => this.imageRef = data);
-      // });
     }
   }
 </script>
 
 <style scoped>
   .title {
-    color:#fff;
+    background-color: rgba(250,250,250,0.5);
   }
 </style>

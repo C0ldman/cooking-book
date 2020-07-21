@@ -1,21 +1,34 @@
 <template>
-  <v-row justify="center">
-    <v-container id="recieptsList" class="flex-column align-content-space-between">
-      <recipeDescriptionElement v-for="(element, index) in database" :element="element" @click.native="viewFull(element)" :key="index"></recipeDescriptionElement>
-      <v-btn class="add-button green darken-2" to="new">Add new</v-btn>
-    </v-container>
-
-    <v-container id="fullViewWrapper" class="d-flex flex-column justify-center" v-if="selected">
-      <elementView :element="selected"></elementView>
-      <v-btn class="add-button green darken-2" @click="editSelected()">Edit</v-btn>
-      <v-btn class="add-button green darken-2" @click="closeFull">Close</v-btn>
-      <v-btn class="add-button red darken-2" @click.native="removeRecipe(selected)">Remove</v-btn>
-    </v-container>
-    <v-container v-if="!selected">
-      Select recipe
-    </v-container>
+  <v-container id="mainWrapper">
+    <v-row justify="space-between">
+      <v-col id="description" v-if="selected" :md="8" :cols="12">
+        <v-row>
+          <elementView :element="selected"></elementView>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-btn @click="editSelected()">Edit</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn @click="closeFull">Close</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn @click.native="removeRecipe(selected)">Remove</v-btn>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col :md="3" :cols="12" style="overfollow:hidden">
+        <v-row id="itemsWrapper" class="d-flex flex-sm-row">
+          <v-col v-for="(element, index) in database" :key="index" :cols="6" :sm="4" :md="12">
+            <recipeDescriptionElement :element="element" @click.native="viewFull(element)"></recipeDescriptionElement>
+          </v-col>
+        </v-row>
+        <v-btn to="new">Add new</v-btn>
+      </v-col>
+    </v-row>
     <preloader :show="preloader"></preloader>
-  </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -42,6 +55,7 @@
     methods: {
       viewFull(element) {
         this.selected = element;
+        this.$vuetify.goTo(0);
       },
       closeFull() {
         this.selected = null
@@ -68,21 +82,9 @@
   }
 </script>
 
-
 <style scoped>
-  #recieptsList {
-    width: 250px;
-    height: 100%;
-    margin: 0;
+  #itemsWrapper {
+    max-height: 620px;
+    overflow-y: scroll;
   }
-
-  .add-button {
-    padding-top: 20px;
-  }
-
-  #fullViewWrapper {
-    width: 60%;
-  }
-
-
 </style>
