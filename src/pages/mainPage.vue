@@ -18,10 +18,10 @@
         </v-row>
       </v-col>
       <v-spacer></v-spacer>
-      <v-col :md="3" :cols="12" style="overfollow:hidden">
+      <v-col :md="3" :cols="12" @click="scrollUp" style="overfollow:hidden">
         <v-row id="itemsWrapper" class="d-flex flex-sm-row">
-          <v-col v-for="(element, index) in database" :key="index" :cols="6" :sm="4" :md="12">
-            <recipeDescriptionElement :element="element" @click.native="viewFull(element)"></recipeDescriptionElement>
+          <v-col v-for="(element, index) in database" :key="index" :cols="6" :sm="4" :md="12" >
+            <recipeDescriptionElement :element="element" @click.native="viewFull(element)" :class="isActive(element)"></recipeDescriptionElement>
           </v-col>
         </v-row>
         <v-btn to="new">Add new</v-btn>
@@ -55,7 +55,6 @@
     methods: {
       viewFull(element) {
         this.selected = element;
-        this.$vuetify.goTo(0);
       },
       closeFull() {
         this.selected = null
@@ -72,6 +71,14 @@
             this.selected = null;
           });
         });
+      },
+      isActive(element) {
+        if (element && this.selected) {
+          return {active: element.id == this.selected.id}
+        }
+      },
+      scrollUp(){
+        this.$vuetify.goTo(0);
       }
     },
     firestore() {
@@ -86,5 +93,9 @@
   #itemsWrapper {
     max-height: 620px;
     overflow-y: scroll;
+  }
+
+  .active {
+    border: 2px solid #03a9f4;
   }
 </style>
