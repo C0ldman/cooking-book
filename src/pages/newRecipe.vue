@@ -42,11 +42,20 @@
         this.preloader = true;
         if (this.element.id) {
           await this.updateRecipe();
-          this.preloader = false;
+          this.preloader = false;this.$notify({
+            group: 'user',
+            title: 'Important message',
+            text: 'Hello user! This is a notification!'
+          });
           this.$router.push('/');
         } else {
           await this.addNewRecipe();
           this.preloader = false;
+          this.$notify({
+            group: 'user',
+            title: 'Important message',
+            text: 'Hello user! This is a notification!'
+          });
           this.$router.push('/');
         }
       },
@@ -74,6 +83,7 @@
           .then(async data => {
             await this.updateImage(data.id, this.newImage)
           })
+
       }
     },
     mounted() {

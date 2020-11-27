@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card loading>
+    <v-card>
       <v-img height="300px" aspect-ratio="1.7" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
         <v-card-title class="title" >{{ element.name }}</v-card-title>
       </v-img>

@@ -1,39 +1,22 @@
 <template>
-  <v-container id="mainWrapper">
-    <v-row justify="space-between">
-      <v-col id="description" v-if="selected" :md="8" :cols="12">
-        <v-row>
-          <elementView :element="selected"></elementView>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-btn @click="editSelected()">Edit</v-btn>
-          </v-col>
-          <v-col>
-            <v-btn @click="closeFull">Close</v-btn>
-          </v-col>
-          <v-col>
-            <v-btn @click.native="removeRecipe(selected)">Remove</v-btn>
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col :md="3" :cols="12" @click="scrollUp" style="overfollow:hidden">
-        <v-row id="itemsWrapper" class="d-flex flex-sm-row">
-          <v-col v-for="(element, index) in database" :key="index" :cols="6" :sm="4" :md="12" >
-            <recipeDescriptionElement :element="element" @click.native="viewFull(element)" :class="isActive(element)"></recipeDescriptionElement>
-          </v-col>
-        </v-row>
-        <v-btn to="new">Add new</v-btn>
+  <v-app id="mainWrapper" fluid>
+
+    <v-divider class="divider" inset></v-divider>
+    <v-row>
+      <v-col v-for="(element, index) in database" :key="index" :md="3">
+        <recipe :element="element"  @click.native="viewFull(element)" :class="isActive(element)"></recipe>
       </v-col>
     </v-row>
+
+    <v-btn to="new">Add new</v-btn>
+    <v-divider class="divider" inset></v-divider>
     <preloader :show="preloader"></preloader>
-  </v-container>
+  </v-app>
 </template>
 
 <script>
   import {db, storage} from '../main'
-  import recipeDescriptionElement from "@/components/recipeDescriptionElement"
+  import recipe from "@/components/recipe"
   import elementView from "@/components/elementView"
   import router from "../plugins/router";
   import preloader from "@/components/preloader"
@@ -41,8 +24,7 @@
   export default {
     name: 'mainPage',
     components: {
-      recipeDescriptionElement,
-      elementView,
+      recipe,
       preloader
     },
     data() {
@@ -85,17 +67,23 @@
       return {
         database: db.collection('reciepts')
       }
+    },
+    mounted() {
+      setTimeout(()=>{
+
+        if (this.database.length==0) {this.$notify({
+          group: 'user',
+          title: 'Error',
+          text: 'No connection to database! Please, try again later.'
+        });}
+      },5000)
     }
   }
 </script>
 
 <style scoped>
-  #itemsWrapper {
-    max-height: 620px;
-    overflow-y: scroll;
-  }
 
-  #itemsWrapper .active {
-    border: 2px solid #03a9f4;
+  .divider {
+    margin: 20px 0;
   }
 </style>

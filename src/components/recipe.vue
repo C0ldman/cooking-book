@@ -1,6 +1,6 @@
 <template>
   <v-card class="itemsWrapper">
-    <v-img contain aspect-ratio="1" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
+    <v-img class="recipeImage" contain aspect-ratio="1" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
     </v-img>
     <v-card-text>
       {{element.name}}
@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: "recipeDescriptionElement",
+    name: "recipe",
     props: {
       element: Object
     }
@@ -19,7 +19,12 @@
 
 <style scoped>
   .itemsWrapper {
-    margin:0 0 20px 20px;
+    width: 100%;
+    height: 100%;
     padding: 5px;
+  }
+
+  .recipeImage {
+    max-height: 75%;
   }
 </style>

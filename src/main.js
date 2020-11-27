@@ -7,6 +7,10 @@ import App from './App';
 import router from '@/plugins/router';
 import vuetify from "@/plugins/vuetify";
 import "vuetify/dist/vuetify.min.css";
+import Notifications from 'vue-notification';
+
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCrZsQA067kkTV9QtAuz4fn2z5UdHc_cEQ",
@@ -23,6 +27,7 @@ export const db = firebase.firestore();
 export const storage = firebase.storage().ref();
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
+Vue.use(Notifications);
 
 
 new Vue({
