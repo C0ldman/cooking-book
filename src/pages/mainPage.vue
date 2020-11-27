@@ -1,14 +1,18 @@
 <template>
   <v-app id="mainWrapper" fluid>
+    <v-container>
+      <v-btn to="new">Add new</v-btn>
+      <v-btn @click="toggleFavourites">Favourites</v-btn>
+    </v-container>
 
     <v-divider class="divider" inset></v-divider>
-    <v-row>
-      <v-col v-for="(element, index) in database" :key="index" :md="3">
-        <recipe :element="element"  @click.native="viewFull(element)" :class="isActive(element)"></recipe>
+    <v-row id="wrapper" :class="{'only-fav':showFavourites}">
+      <v-col class="element" v-for="(element, index) in database" :key="index" :lg="2" :md="3" :sm="4" :xs="6" :class="{favourite:isFavourite(element)}">
+        <recipe class="recipe" :element="element" @click.native="viewFull(element)" :class="{active:isActive(element)}"></recipe>
       </v-col>
     </v-row>
 
-    <v-btn to="new">Add new</v-btn>
+
     <v-divider class="divider" inset></v-divider>
     <preloader :show="preloader"></preloader>
   </v-app>
@@ -31,7 +35,8 @@
       return {
         database: [],
         selected: null,
-        preloader: false
+        preloader: false,
+        showFavourites:false
       }
     },
     methods: {
@@ -56,8 +61,14 @@
       },
       isActive(element) {
         if (element && this.selected) {
-          return {active: element.id == this.selected.id}
+          return  element.id == this.selected.id
         }
+      },
+      isFavourite(element){
+        return element.isFavourite
+      },
+      toggleFavourites(){
+        this.showFavourites=!this.showFavourites;
       },
       scrollUp(){
         this.$vuetify.goTo(0);
@@ -70,20 +81,34 @@
     },
     mounted() {
       setTimeout(()=>{
-
-        if (this.database.length==0) {this.$notify({
+        if (this.database.length===0) {this.$notify({
           group: 'user',
           title: 'Error',
           text: 'No connection to database! Please, try again later.'
         });}
-      },5000)
+      },5000);
+
     }
   }
 </script>
 
 <style scoped>
-
+#wrapper {
+  width: 90%;
+  margin: 0 5%;
+}
   .divider {
     margin: 20px 0;
+  }
+  .recipe {
+    height: 100%;
+  }
+
+  .only-fav .element:not(.favourite) {
+    display: none;
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
