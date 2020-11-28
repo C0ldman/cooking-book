@@ -8,7 +8,7 @@
     <v-divider class="divider" inset></v-divider>
     <v-row id="wrapper" :class="{'only-fav':showFavourites}">
       <v-col class="element" v-for="(element, index) in database" :key="index" :lg="2" :md="3" :sm="4" :xs="6" :class="{favourite:isFavourite(element)}">
-        <recipe class="recipe" :element="element" @click.native="viewFull(element)" :class="{active:isActive(element)}"></recipe>
+        <recipe class="recipe" :element="element" @click.native="viewFull(element)" @updated="updateElement" :class="{active:isActive(element)}"></recipe>
       </v-col>
     </v-row>
 
@@ -64,30 +64,25 @@
           return  element.id == this.selected.id
         }
       },
-      isFavourite(element){
-        return element.isFavourite
-      },
       toggleFavourites(){
         this.showFavourites=!this.showFavourites;
       },
+      isFavourite(element){
+        return element.isFavourite
+      },
       scrollUp(){
         this.$vuetify.goTo(0);
-      }
+      },
+      updateElement(element){
+        console.log(element.isFavourite);
+        db.collection('reciepts').doc(element.id).update({isFavourite:!element.isFavourite})
+        }
+
     },
     firestore() {
       return {
         database: db.collection('reciepts')
       }
-    },
-    mounted() {
-      setTimeout(()=>{
-        if (this.database.length===0) {this.$notify({
-          group: 'user',
-          title: 'Error',
-          text: 'No connection to database! Please, try again later.'
-        });}
-      },5000);
-
     }
   }
 </script>

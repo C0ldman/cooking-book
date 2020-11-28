@@ -5,6 +5,12 @@
     <v-card-text>
       {{element.name}}
     </v-card-text>
+    <v-icon v-if="!element.isFavourite" @click="toggleFavourite">mdi-star-outline</v-icon>
+    <v-icon v-if="element.isFavourite" class="fav" @click="toggleFavourite">mdi-star</v-icon>
+    View
+    <v-icon >mdi-eye-outline</v-icon>
+    Edit
+    <v-icon >mdi-pencil-outline</v-icon>
   </v-card>
 </template>
 
@@ -13,6 +19,11 @@
     name: "recipe",
     props: {
       element: Object
+    },
+    methods:{
+      toggleFavourite(){
+        this.$emit('updated',this.element)
+  }
     }
   }
 </script>
@@ -24,5 +35,9 @@
 
   .recipeImage {
     max-height: 75%;
+  }
+
+  .fav {
+    color: #ff9400;
   }
 </style>
