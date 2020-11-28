@@ -9,21 +9,26 @@
       </v-card-text>
     </v-card>
     <ingredientsList :ingredients="this.element.ingredients"></ingredientsList>
+    <socialShare :shareUrl="url"></socialShare>
     <v-btn @click="goBack">BACK</v-btn>
+    {{ur}}
   </v-container>
 
 </template>
 
 <script>
   import ingredientsList from "@/components/ingredientsList";
+  import socialShare from "@/components/socialShare";
 
   export default {
     name: "viewRecipe",
     components: {
-      ingredientsList
+      ingredientsList,
+      socialShare
     },
     data() {
       return {
+        url:''
       }
     },
     methods: {
@@ -38,14 +43,15 @@
       id() {
         return this.$route.params.id
       },
-      tracker(){
-        console.log(this.element);
-      }
+        ur(){
+          console.log(window);}
+
     },
     created() {
-      this.$store.dispatch('bindBase')
+      this.$store.dispatch('bindBase');
     },
     mounted() {
+      this.url = window.location.href;
     }
   }
 </script>

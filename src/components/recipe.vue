@@ -55,10 +55,10 @@
       toggleFavourite() {
         this.$emit('favourite', this.element.id)
       },
-      viewRecipe(){
-        this.$router.push('/view/'+this.element.id);
+      viewRecipe() {
+        this.$router.push('/view/' + this.element.id);
       }
-  }
+    }
   }
 </script>
 

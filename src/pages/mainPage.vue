@@ -8,7 +8,7 @@
     <v-divider class="divider" inset></v-divider>
     <v-row id="wrapper">
       <v-col class="element" v-for="(element, index) in list" :key="index" :lg="2" :md="3" :sm="4" :xs="6">
-        <recipe class="recipe" :element="element" @favourite="updateFavourite" ></recipe>
+        <recipe class="recipe" :element="element" @favourite="updateFavourite"></recipe>
       </v-col>
     </v-row>
 
@@ -28,7 +28,7 @@
     },
     data() {
       return {
-        showFavourites:false
+        showFavourites: false
       }
     },
     methods: {
@@ -45,19 +45,19 @@
           });
         });
       },
-      toggleFavourites(){
-        this.showFavourites=!this.showFavourites;
+      toggleFavourites() {
+        this.showFavourites = !this.showFavourites;
       },
-      updateFavourite(id){
-            this.$store.dispatch('updateFavourite',id)
-        }
+      updateFavourite(id) {
+        this.$store.dispatch('updateFavourite', id)
+      }
 
     },
     created() {
       this.$store.dispatch('bindBase')
     },
-    computed:{
-      list(){
+    computed: {
+      list() {
         return this.showFavourites ? this.$store.getters.favourites : this.$store.getters.data
       }
     }
@@ -65,13 +65,15 @@
 </script>
 
 <style scoped>
-#wrapper {
-  width: 90%;
-  margin: 0 5%;
-}
+  #wrapper {
+    width: 90%;
+    margin: 0 5%;
+  }
+
   .divider {
     margin: 20px 0;
   }
+
   .recipe {
     height: 100%;
   }
