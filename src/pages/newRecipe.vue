@@ -3,29 +3,26 @@
     <v-row>
       <v-spacer></v-spacer>
       <v-col :cols="10">
-        <v-text-field v-model="element.name" :counter="100" placeholder="Recip name" label="Name"></v-text-field>
+        <v-text-field v-model="element.name" :counter="100" placeholder="Recipe name" label="Name"></v-text-field>
         <v-file-input small-chips v-model="newImage" accept="image/*" placeholder="Select your image" label="Image"></v-file-input>
-        <v-textarea solo name="description" v-model="element.description" placeholder="Recip description" label="Description"></v-textarea>
+        <v-textarea solo name="description" v-model="element.description" placeholder="Recipe description" label="Description"></v-textarea>
         <ingredientsList :ingredients="element.ingredients" :editable=true @ingredientsUpdate="updateIngredients"></ingredientsList>
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
     <v-btn @click.native="addRecip">Save</v-btn>
     <v-btn to="/">Back</v-btn>
-    <preloader :show="preloader"></preloader>
   </v-container>
 </template>
 
 <script>
   import ingredientsList from "@/components/ingredientsList";
-  import preloader from "@/components/preloader"
   import {db, storage} from '../main';
 
   export default {
     name: "newRecipe",
     components: {
-      ingredientsList,
-      preloader
+      ingredientsList
     },
     data() {
       return {

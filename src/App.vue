@@ -2,13 +2,23 @@
   <div id="app">
     <router-view/>
     <notifications group="user" />
+    <preloader :show="preloader"></preloader>
   </div>
 
 </template>
 
 <script>
+  import preloader from "@/components/preloader"
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    preloader
+  },
+  computed:{
+    preloader(){
+      return this.$store.state.preloader
+    }
+  }
 }
 </script>
 
