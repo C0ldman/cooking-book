@@ -8,6 +8,7 @@ import router from '@/plugins/router';
 import vuetify from "@/plugins/vuetify";
 import "vuetify/dist/vuetify.min.css";
 import Notifications from 'vue-notification';
+import store from './plugins/store'
 
 
 
@@ -25,9 +26,11 @@ firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
 export const storage = firebase.storage().ref();
+
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
 Vue.use(Notifications);
+
 
 
 new Vue({
@@ -35,7 +38,7 @@ new Vue({
   router,
   vuetify,
   components: {App},
+  store,
   template: '<App/>'
 })
-
 

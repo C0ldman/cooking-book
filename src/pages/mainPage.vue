@@ -33,7 +33,6 @@
     },
     data() {
       return {
-        database: [],
         selected: null,
         preloader: false,
         showFavourites:false
@@ -79,9 +78,12 @@
         }
 
     },
-    firestore() {
-      return {
-        database: db.collection('reciepts')
+    created() {
+      this.$store.dispatch('bindBase')
+    },
+    computed:{
+      database(){
+        return this.$store.getters.data
       }
     }
   }
