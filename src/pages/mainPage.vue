@@ -1,5 +1,6 @@
 <template>
   <div id="mainWrapper" fluid>
+    <v-text-field v-model="search" prepend-icon="mdi-card-search-outline" label="Search"></v-text-field>
     <v-container>
       <v-btn to="new">Add new</v-btn>
       <v-btn @click="toggleFavourites" :class="{green:showFavourites}">Favourites</v-btn>
@@ -10,6 +11,8 @@
       <v-col class="element" v-for="(element, index) in list" :key="index" :lg="2" :md="3" :sm="4" :xs="6">
         <recipe class="recipe" :element="element" @favourite="updateFavourite"></recipe>
       </v-col>
+      <div v-if="notFound">Items not found</div>
+      <div v-if="noFavourites">No items in favourites</div>
     </v-row>
 
     <v-divider class="divider" inset></v-divider>
@@ -26,7 +29,8 @@
     },
     data() {
       return {
-        showFavourites: false
+        showFavourites: false,
+        search: ''
       }
     },
     methods: {
@@ -53,7 +57,20 @@
     },
     computed: {
       list() {
-        return this.showFavourites ? this.$store.getters.favourites : this.$store.getters.data
+        let list = this.showFavourites ? this.$store.getters.favourites : this.$store.getters.data;
+        if (this.search!='') {
+          let newList = list.filter((el) => {
+            let result = el.name.search(this.search);
+            return result >= 0 ? true : false
+          })
+          return newList
+        }else{return list}
+      },
+      notFound(){
+        return this.search.length&&!this.list.length&&!this.noFavourites ? true : false
+      },
+      noFavourites(){
+        return this.showFavourites&&!this.list.length&&!this.search ? true : false
       }
     }
   }
@@ -71,5 +88,9 @@
 
   .recipe {
     height: 100%;
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
