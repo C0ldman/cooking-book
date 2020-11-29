@@ -10,7 +10,7 @@
           <th v-if="editable" width="50">Remove</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody v-scroll:#scroll-target="onScroll">
         <tr v-for="item in ingredients" :key="item.ingredientName">
           <td>{{ item.ingredientName }}</td>
           <td>{{ item.ingredientQuantity }}</td>
@@ -115,11 +115,16 @@
         this.editor = true;
         this.newName = element.ingredientName;
         this.newQuantity = element.ingredientQuantity;
+      },
+      onScroll(e){
+        console.log('e:', e);
       }
     }
   }
 </script>
 
 <style scoped>
-
+.table {
+  font-size: 1.35rem !important;
+}
 </style>

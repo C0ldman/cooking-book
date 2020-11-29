@@ -29,7 +29,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    background-color: #dbe8ff;
+    background-color: #F5F5F5;
+    font-family: "Roboto", sans-serif;
   }
 </style>

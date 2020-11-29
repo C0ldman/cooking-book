@@ -3,13 +3,14 @@
     <v-col :cols="10">
       <v-text-field v-model="element.name" :counter="100" placeholder="Recipe name" label="Name"></v-text-field>
       <v-img height="100px" contain :src="this.element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'"></v-img>
-      <v-file-input show-size chips prepend-icon="mdi-camera" v-model="newImage" accept="image/*" placeholder="Select new image" label="New image"></v-file-input>
+      <v-file-input prepend-icon="mdi-camera" v-model="newImage" accept="image/*" placeholder="Select new image" label="New image"></v-file-input>
       <v-textarea solo name="description" v-model="element.description" placeholder="Recipe description" label="Description"></v-textarea>
       <ingredientsList :ingredients="element.ingredients" :editable=true @ingredientsUpdate="updateIngredients"></ingredientsList>
     </v-col>
-
-    <v-btn @click="goBack">cancel</v-btn>
-    <v-btn @click="save">save</v-btn>
+    <v-btn-toggle rounded>
+    <v-btn class="button" color="#CFD8DC" height="60" @click="goBack">cancel</v-btn>
+    <v-btn class="button" color="#CFD8DC" height="60" @click="save">save</v-btn>
+    </v-btn-toggle>
   </v-container>
 
 </template>
@@ -102,5 +103,9 @@
 <style scoped>
   #socialShare {
     width: 50%;
+  }
+
+  .button {
+    font-size: 1.75rem;
   }
 </style>

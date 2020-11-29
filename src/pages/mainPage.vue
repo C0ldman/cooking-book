@@ -1,14 +1,22 @@
 <template>
   <div id="mainWrapper" fluid>
-    <v-text-field v-model="search" prepend-icon="mdi-card-search-outline" clearable clear-icon='mdi-close' label="Search"></v-text-field>
+      <v-row>
+        <v-col cols="8"></v-col>
+        <v-col cols="4"><v-text-field class="search" v-model="search" prepend-icon="mdi-card-search-outline" label="Search"></v-text-field></v-col>
+      </v-row>
+
+      <div class="pa-2"></div>
+
     <v-container>
-      <v-btn to="new">Add new</v-btn>
-      <v-btn @click="toggleFavourites" rounded :class="{'grey lighten-1':showFavourites}">Favourites</v-btn>
+      <v-btn-toggle rounded>
+        <v-btn class="button" color="#CFD8DC" height="60" to="new">Add new</v-btn>
+        <v-btn class="button" color="#CFD8DC" height="60" @click="toggleFavourites" :class="{'grey lighten-1':showFavourites}">Favourites</v-btn>
+      </v-btn-toggle>
     </v-container>
 
     <v-divider class="divider" inset></v-divider>
     <v-row id="wrapper">
-      <v-col class="element"  v-for="(element, index) in list" :key="index" :lg="2" :md="3" :sm="4" :xs="6">
+      <v-col class="element" v-for="(element, index) in list" :key="index" :lg="3" :md="3" :sm="4" xs-cols="6">
         <recipe class="recipe" :element="element" @favourite="updateFavourite"></recipe>
       </v-col>
       <div v-if="notFound">Items not found</div>
@@ -49,11 +57,7 @@
       },
       updateFavourite(id) {
         this.$store.dispatch('updateFavourite', id)
-      },
-      viewRecipe(el) {
-        console.log('el:', el);
-        // this.$router.push('/view/' + this.element.id);
-      },
+      }
     },
     created() {
       this.$store.dispatch('bindBase')
@@ -61,19 +65,21 @@
     computed: {
       list() {
         let list = this.showFavourites ? this.$store.getters.favourites : this.$store.getters.data;
-        if (this.search!='') {
+        if (this.search != '') {
           let newList = list.filter((el) => {
-            let result = el.name.search(this.search);
+            let result = el.name.toLowerCase().search(this.search.toLowerCase());
             return result >= 0 ? true : false
           })
           return newList
-        }else{return list}
+        } else {
+          return list
+        }
       },
-      notFound(){
-        return this.search.length&&!this.list.length&&!this.noFavourites ? true : false
+      notFound() {
+        return this.search.length && !this.list.length && !this.noFavourites ? true : false
       },
-      noFavourites(){
-        return this.showFavourites&&!this.list.length&&!this.search ? true : false
+      noFavourites() {
+        return this.showFavourites && !this.list.length && !this.search ? true : false
       }
     }
   }
@@ -93,7 +99,17 @@
     height: 100%;
   }
 
+
   .hidden {
     display: none;
   }
+
+  .button {
+    font-size: 1.75rem;
+  }
+
+  .search {
+    font-size: 1.5rem;
+  }
+
 </style>

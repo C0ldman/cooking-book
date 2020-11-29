@@ -1,22 +1,21 @@
 <template>
   <div>
-    <v-btn @click="edit">Edit</v-btn>
-    <v-btn @click="removeRecipe">remove</v-btn>
+    <v-btn-toggle rounded>
+    <v-btn class="button" color="#CFD8DC" height="60" @click="edit">Edit</v-btn>
+    <v-btn class="button" color="#CFD8DC" height="60" @click="removeRecipe">remove</v-btn>
+    </v-btn-toggle>
     <v-container v-if="element">
       <v-card>
-        <v-img height="300px" aspect-ratio="1.7" :src="this.element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
-          <v-card-title class="title">{{ element.name }}</v-card-title>
-        </v-img>
+        <v-card-title class="title" center>{{ element.name }}</v-card-title>
+        <v-img height="400px" contain :src="this.element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'"></v-img>
         <v-card-text>
-          <div>{{this.element.description}}</div>
+          <div class="description">{{this.element.description}}</div>
         </v-card-text>
       </v-card>
       <ingredientsList :ingredients="this.element.ingredients"></ingredientsList>
       <v-container>
         <v-row>
-          <v-col>
             <socialShare id="socialShare" :shareUrl="url"></socialShare>
-          </v-col>
         </v-row>
       </v-container>
 
@@ -82,5 +81,18 @@
   .overlay {
     width: 100%;
     height: 100%;
+  }
+
+  .button {
+    margin-top: 2rem;
+    font-size: 1.75rem;
+  }
+
+  .title {
+    font-size: 1.75rem !important;
+  }
+
+  .description {
+    font-size: 1.5rem !important;
   }
 </style>
