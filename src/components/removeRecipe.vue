@@ -8,37 +8,52 @@
 
 <script>
   import {db, storage} from '../main';
+
   export default {
     name: "removeRecipe",
     props: {
       id: String,
       overlay: Boolean
     },
-    computed:{
-      state(){
+    computed: {
+      state() {
         return this.overlay
       }
     },
     methods: {
       removeRecipe() {
         this.$store.dispatch('onPreloader');
-        db.collection('reciepts').doc(this.id).name;
-        db.collection('reciepts').doc(this.id).delete().then(async () => {
-          storage.child(`${this.id}`).listAll().then(async (entry) => {
-            if(entry.items[0]) {
-              await storage.child(`${this.id}/${entry.items[0].name}`).delete();
-            };
+        db.collection('reciepts').doc(this.id).delete()
+          .then(async () => {
+            storage.child(`${this.id}`).listAll().then(async (entry) => {
+              if (entry.items[0]) {
+                await storage.child(`${this.id}/${entry.items[0].name}`).delete();
+              }
+              ;
+
+            });
+          }).then(() => {
+          this.$notify({
+            group: 'user',
+            type: 'warn',
+            text: 'Recipe deleted!'
+          });
+          this.$store.dispatch('offPreloader');
+          this.$emit('close');
+        })
+          .catch((e) => {
+            console.log('Fail on update: ', e)
+            this.$store.dispatch('offPreloader');
             this.$notify({
               group: 'user',
-              type:'warn',
-              text: 'Recipe deleted!'
+              type: 'error',
+              title: 'Something went wrong!',
+              text: 'Can\'t remove recipe. Please, try again later'
             });
-            this.$store.dispatch('offPreloader');
-            this.$emit('close');
-          });
-        })
+            this.$router.push('/');
+          })
       },
-      close(){
+      close() {
         this.$emit('close');
       }
     }

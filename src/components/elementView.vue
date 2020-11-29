@@ -14,7 +14,6 @@
 
 <script>
   import ingredientsList from "@/components/ingredientsList";
-  import {storage} from "../main";
   export default {
     name: "elementView",
     components: {

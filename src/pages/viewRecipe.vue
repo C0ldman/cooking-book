@@ -14,7 +14,7 @@
       <ingredientsList :ingredients="this.element.ingredients"></ingredientsList>
       <v-container>
         <v-row>
-          <v-col >
+          <v-col>
             <socialShare id="socialShare" :shareUrl="url"></socialShare>
           </v-col>
         </v-row>
@@ -56,7 +56,7 @@
     },
     computed: {
       element() {
-        return this.$store.getters.element(this.id);
+        return this.$store.getters.element(this.id)
       },
       id() {
         return this.$route.params.id
@@ -67,6 +67,10 @@
     },
     mounted() {
       this.url = window.location.href;
+      setTimeout(() => {
+        console.log('this.element:', this.element);
+        if (!this.element) this.$router.push('/notFound');
+      }, 500)
     }
   }
 </script>

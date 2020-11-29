@@ -1,5 +1,5 @@
 <template>
-  <v-app id="mainWrapper" fluid>
+  <div id="mainWrapper" fluid>
     <v-container>
       <v-btn to="new">Add new</v-btn>
       <v-btn @click="toggleFavourites" :class="{green:showFavourites}">Favourites</v-btn>
@@ -13,13 +13,11 @@
     </v-row>
 
     <v-divider class="divider" inset></v-divider>
-  </v-app>
+  </div>
 </template>
 
 <script>
-  import recipe from "@/components/recipe"
-  import router from "../plugins/router";
-
+  import recipe from "@/components/recipe";
 
   export default {
     name: 'mainPage',
@@ -32,9 +30,6 @@
       }
     },
     methods: {
-      editSelected() {
-        router.push({name: 'new', params: {element: this.selected}})
-      },
       removeRecipe(element) {
         db.collection('reciepts').doc(element.id).delete().then(async () => {
           this.preloader = true;

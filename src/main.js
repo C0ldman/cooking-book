@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import firebase from 'firebase';
 import {firestorePlugin} from 'vuefire';
 import Vue from 'vue';
@@ -11,8 +9,6 @@ import Notifications from 'vue-notification';
 import store from './plugins/store'
 
 
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyCrZsQA067kkTV9QtAuz4fn2z5UdHc_cEQ",
   authDomain: "cooking-book-808e4.firebaseapp.com",
@@ -22,6 +18,7 @@ const firebaseConfig = {
   messagingSenderId: "955428926125",
   appId: "1:955428926125:web:e462a310fd7447a6aa4c24"
 };
+
 firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
@@ -30,8 +27,6 @@ export const storage = firebase.storage().ref();
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
 Vue.use(Notifications);
-
-
 
 new Vue({
   el: '#app',
