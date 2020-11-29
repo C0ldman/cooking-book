@@ -1,13 +1,24 @@
 <template>
   <v-row>
-    <Facebook class="media-icon" :url="shareUrl" :scale="scale"></Facebook>
-    <Twitter class="media-icon" :url="shareUrl" :scale="scale"></Twitter>
-    <Telegram class="media-icon" :url="shareUrl" :scale="scale"></Telegram>
-    <WhatsApp class="media-icon" :url="shareUrl" :scale="scale"></WhatsApp>
-    <Pinterest class="media-icon" :url="shareUrl" :scale="scale"></Pinterest>
-    <Reddit class="media-icon" :url="shareUrl" :scale="scale"></Reddit>
-    <Email class="media-icon" :url="shareUrl" :scale="scale"></Email>
-    {{url}}
+    <v-col cols="12">
+      <v-row align="center" justify="center">
+
+        <Facebook class="media-icon" :url="shareUrl" :scale="scale"></Facebook>
+
+        <Twitter class="media-icon" :url="shareUrl" :scale="scale"></Twitter>
+
+        <Telegram class="media-icon" :url="shareUrl" :scale="scale"></Telegram>
+
+        <WhatsApp class="media-icon" :url="shareUrl" :scale="scale"></WhatsApp>
+
+        <Pinterest class="media-icon" :url="shareUrl" :scale="scale"></Pinterest>
+
+        <Reddit class="media-icon" :url="shareUrl" :scale="scale"></Reddit>
+
+        <Email class="media-icon" :url="shareUrl" :scale="scale"></Email>
+
+      </v-row>
+    </v-col>
   </v-row>
 </template>
 
@@ -28,18 +39,18 @@
       Pinterest,
       Reddit
     },
-    data(){
+    data() {
       return {
-        scale:2,
-        title:"Look at my awesome recipe!",
-        body:'Look at my awesome recipe!'
+        scale: '2',
+        title: "Look at my awesome recipe!",
+        body: 'Look at my awesome recipe!'
       }
     }
   }
 </script>
 
 <style scoped>
-.media-icon {
-  margin-right: 10px;
-}
+  .media-icon {
+    margin-right: 10px;
+  }
 </style>

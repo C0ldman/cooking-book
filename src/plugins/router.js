@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import mainPage from '@/pages/mainPage'
 import newRecipe from "@/pages/newRecipe";
 import viewRecipe from "@/pages/viewRecipe";
+import editRecipe from "@/pages/editRecipe";
 import notFound from "@/pages/notFound";
 
 Vue.use(Router)
@@ -27,10 +28,10 @@ export default new Router({
       props: true
     },
     {
-      path: '/notFound',
-      name: 'Not found',
-      component: notFound,
-      props: false
+      path: '/edit/:id',
+      name: 'Edit',
+      component: editRecipe,
+      props: true
     },
     {
       path: '*',

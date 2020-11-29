@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-card class="itemsWrapper elevation-2">
     <v-img class="recipeImage" aspect-ratio="1" :src="element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'">
 
@@ -32,7 +33,7 @@
     <!--      </template>-->
     <!--      <span>Edit</span>-->
     <!--    </v-tooltip>-->
-    <v-icon>mdi-pencil-outline</v-icon>
+    <v-icon @click="editRecipe">mdi-pencil-outline</v-icon>
 
     <!--    <v-tooltip bottom>-->
     <!--      <template v-slot:activator="{ on, attrs }">-->
@@ -40,16 +41,27 @@
     <!--      </template>-->
     <!--      <span>Remove</span>-->
     <!--    </v-tooltip>-->
-    <v-icon>mdi-minus</v-icon>
-
+    <v-icon @click="removeRecipe">mdi-minus</v-icon>
   </v-card>
+  <removeRecipe :id="this.element.id" :overlay="overlay" @close="promtClosed"></removeRecipe>
+  </div>
 </template>
 
 <script>
+  import removeRecipe from "@/components/removeRecipe";
+
   export default {
     name: "recipe",
     props: {
       element: Object
+    },
+    components:{
+      removeRecipe
+    },
+    data() {
+      return {
+        overlay: false
+      }
     },
     methods: {
       toggleFavourite() {
@@ -57,6 +69,15 @@
       },
       viewRecipe() {
         this.$router.push('/view/' + this.element.id);
+      },
+      editRecipe() {
+        this.$router.push('/edit/' + this.element.id);
+      },
+      removeRecipe() {
+        this.overlay = true;
+      },
+      promtClosed(){
+        this.overlay=false;
       }
     }
   }
