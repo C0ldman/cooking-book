@@ -1,14 +1,14 @@
 <template>
   <div id="mainWrapper" fluid>
-    <v-text-field v-model="search" prepend-icon="mdi-card-search-outline" label="Search"></v-text-field>
+    <v-text-field v-model="search" prepend-icon="mdi-card-search-outline" clearable clear-icon='mdi-close' label="Search"></v-text-field>
     <v-container>
       <v-btn to="new">Add new</v-btn>
-      <v-btn @click="toggleFavourites" :class="{green:showFavourites}">Favourites</v-btn>
+      <v-btn @click="toggleFavourites" rounded :class="{'grey lighten-1':showFavourites}">Favourites</v-btn>
     </v-container>
 
     <v-divider class="divider" inset></v-divider>
     <v-row id="wrapper">
-      <v-col class="element" v-for="(element, index) in list" :key="index" :lg="2" :md="3" :sm="4" :xs="6">
+      <v-col class="element"  v-for="(element, index) in list" :key="index" :lg="2" :md="3" :sm="4" :xs="6">
         <recipe class="recipe" :element="element" @favourite="updateFavourite"></recipe>
       </v-col>
       <div v-if="notFound">Items not found</div>
@@ -49,8 +49,11 @@
       },
       updateFavourite(id) {
         this.$store.dispatch('updateFavourite', id)
-      }
-
+      },
+      viewRecipe(el) {
+        console.log('el:', el);
+        // this.$router.push('/view/' + this.element.id);
+      },
     },
     created() {
       this.$store.dispatch('bindBase')

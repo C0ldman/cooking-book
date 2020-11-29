@@ -80,12 +80,7 @@
           })
 
       }
-    },
-    mounted() {
-      if (this.$route.params.element)
-        this.element = this.$route.params.element;
-    },
-    watch: {}
+    }
   }
 </script>
 <style scoped></style>

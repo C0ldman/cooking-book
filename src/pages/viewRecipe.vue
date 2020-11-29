@@ -68,7 +68,6 @@
     mounted() {
       this.url = window.location.href;
       setTimeout(() => {
-        console.log('this.element:', this.element);
         if (!this.element) this.$router.push('/notFound');
       }, 500)
     }

@@ -23,14 +23,13 @@
     methods: {
       removeRecipe() {
         this.$store.dispatch('onPreloader');
-        db.collection('reciepts').doc(this.id).delete()
+        let idForRemove = this.id;
+        db.collection('reciepts').doc(idForRemove).delete()
           .then(async () => {
-            storage.child(`${this.id}`).listAll().then(async (entry) => {
+            storage.child(idForRemove).listAll().then(async (entry) => {
               if (entry.items[0]) {
-                await storage.child(`${this.id}/${entry.items[0].name}`).delete();
+                await storage.child(idForRemove[entry.items[0].name]).delete();
               }
-              ;
-
             });
           }).then(() => {
           this.$notify({
@@ -42,7 +41,7 @@
           this.$emit('close');
         })
           .catch((e) => {
-            console.log('Fail on update: ', e)
+            console.log(`Fail on remove(id=${idForRemove}): `, e)
             this.$store.dispatch('offPreloader');
             this.$notify({
               group: 'user',
@@ -61,4 +60,11 @@
 </script>
 
 <style scoped>
+  #overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
