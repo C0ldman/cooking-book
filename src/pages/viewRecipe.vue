@@ -9,9 +9,11 @@
         <v-card-title class="title" center>{{ element.name }}</v-card-title>
         <v-img height="400px" contain :src="this.element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'"></v-img>
         <v-card-text>
+          <h1>Method:</h1>
           <div class="description">{{this.element.description}}</div>
         </v-card-text>
       </v-card>
+
       <ingredientsList :ingredients="this.element.ingredients"></ingredientsList>
       <v-container>
         <v-row>
@@ -93,6 +95,7 @@
   }
 
   .description {
+    padding-top: 1rem;
     font-size: 1.5rem !important;
   }
 </style>

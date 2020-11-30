@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-simple-table class="table" fixed-header height="360px">
+    <v-simple-table id="ingredientsTable" fixed-header height="360px">
       <template>
         <thead>
         <tr>
@@ -11,16 +11,6 @@
         </tr>
         </thead>
         <tbody v-scroll:#scroll-target="onScroll">
-        <tr v-for="item in ingredients" :key="item.ingredientName">
-          <td>{{ item.ingredientName }}</td>
-          <td>{{ item.ingredientQuantity }}</td>
-          <td v-if="editable">
-            <v-icon @click.native="editIngredient(item)">mdi-pencil</v-icon>
-          </td>
-          <td v-if="editable">
-            <v-icon @click.native="removeIngredient(item)">mdi-minus-circle</v-icon>
-          </td>
-        </tr>
         <tr v-if="editor" @keyup.enter="saveNewIngredient" @keyup.esc="clearNewIngredient">
           <td colspan="4">
             <v-row>
@@ -39,22 +29,37 @@
           <td colspan="4">
             <v-row>
               <v-col :cols="12" :md="6">
-                <v-btn @click="saveNewIngredient"> Save</v-btn>
+                <v-btn rounded color="#CFD8DC" @click="saveNewIngredient"> Save</v-btn>
               </v-col>
 
               <v-spacer></v-spacer>
               <v-col :cols="12" :md="6">
-                <v-btn @click="clearNewIngredient">Cancel</v-btn>
+                <v-btn rounded color="#CFD8DC" @click="clearNewIngredient">Cancel</v-btn>
               </v-col>
             </v-row>
+          </td>
+        </tr>
+        <tr v-for="item in ingredients" :key="item.ingredientName">
+          <td>{{ item.ingredientName }}</td>
+          <td>{{ item.ingredientQuantity }}</td>
+          <td v-if="editable">
+            <v-icon @click.native="editIngredient(item)">mdi-pencil</v-icon>
+          </td>
+          <td v-if="editable">
+            <v-icon @click.native="removeIngredient(item)">mdi-minus-circle</v-icon>
           </td>
         </tr>
         </tbody>
       </template>
     </v-simple-table>
 
-    <v-icon v-if="!this.editor && editable" @click.native="addIngredient" key="edit-button">mdi-plus-circle</v-icon>
 
+    <v-tooltip bottom v-if="!this.editor && editable"  >
+      <template v-slot:activator="{ on, attrs }">
+        <v-icon class="add-icon" @click="addIngredient" v-bind="attrs" v-on="on" key="edit-button">mdi-plus-circle</v-icon>
+      </template>
+      <span>Add ingredient</span>
+    </v-tooltip>
 
   </v-container>
 </template>
@@ -124,7 +129,17 @@
 </script>
 
 <style scoped>
-.table {
-  font-size: 1.35rem !important;
+#ingredientsTable tr td{
+  font-size: 1.25rem !important;
 }
+
+#ingredientsTable tr th{
+  font-size: 1.35rem !important;
+  text-align: center;
+}
+
+  .add-icon {
+    font-size: 2rem !important;
+  }
+
 </style>

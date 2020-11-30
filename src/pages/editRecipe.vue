@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="element">
-    <v-col :cols="10">
+    <v-col :cols="12">
       <v-text-field v-model="element.name" :counter="100" placeholder="Recipe name" label="Name"></v-text-field>
       <v-img height="100px" contain :src="this.element.imageRef || 'https://news.harvard.edu/wp-content/uploads/2020/06/060520_Cooking_101_2500.jpg'"></v-img>
       <v-file-input prepend-icon="mdi-camera" v-model="newImage" accept="image/*" placeholder="Select new image" label="New image"></v-file-input>

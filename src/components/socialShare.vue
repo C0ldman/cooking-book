@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <v-row align="center" justify="center">
-        <div class="caption">Share this recip</div>
+        <div class="caption">Share this recipe:</div>
 
         <Facebook class="media-icon" :url="shareUrl" :scale="scale"></Facebook>
 
@@ -52,11 +52,10 @@
 
 <style scoped>
   .media-icon {
-    margin-right: 10px;
   }
 
   .caption {
-    margin-right: 10px;
-    font-size: 1.25rem;
+    margin: auto 10px auto 0;
+    font-size: 1.1rem !important;
   }
 </style>

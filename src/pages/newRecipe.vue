@@ -10,8 +10,10 @@
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
-    <v-btn @click.native="addRecip">Save</v-btn>
-    <v-btn to="/">Back</v-btn>
+    <v-btn-toggle rounded>
+      <v-btn class="button" color="#CFD8DC" height="60" @click.native="addRecip">Save</v-btn>
+      <v-btn class="button" color="#CFD8DC" height="60" to="/">Back</v-btn>
+    </v-btn-toggle>
   </v-container>
 </template>
 
@@ -83,4 +85,8 @@
     }
   }
 </script>
-<style scoped></style>
+<style scoped>
+  .button {
+    font-size: 1.75rem;
+  }
+</style>

@@ -11,28 +11,28 @@
         <div class="invisible panel" :class="{visible:hover}">
           <v-tooltip bottom v-if="!element.isFavourite">
             <template v-slot:activator="{ on, attrs }">
-              <v-icon class="icon" @click="toggleFavourite" v-bind="attrs" v-on="on">mdi-star-outline</v-icon>
+              <v-icon class="action-icon" @click="toggleFavourite" v-bind="attrs" v-on="on">mdi-star-outline</v-icon>
             </template>
             <span>Add to favourites</span>
           </v-tooltip>
 
           <v-tooltip bottom v-if="element.isFavourite">
             <template v-slot:activator="{ on, attrs }">
-              <v-icon class="active icon" @click="toggleFavourite" v-bind="attrs" v-on="on">mdi-star</v-icon>
+              <v-icon class="active action-icon" @click="toggleFavourite" v-bind="attrs" v-on="on">mdi-star</v-icon>
             </template>
             <span>Remove from favourites</span>
           </v-tooltip>
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-icon class="icon" v-bind="attrs" v-on="on" @click="editRecipe">mdi-pencil-outline</v-icon>
+              <v-icon class="action-icon" v-bind="attrs" v-on="on" @click="editRecipe">mdi-pencil-outline</v-icon>
             </template>
             <span>Edit</span>
           </v-tooltip>
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-icon class="icon" @click="removeRecipe" v-on="on" v-bind="attrs">mdi-minus</v-icon>
+              <v-icon class="action-icon" @click="removeRecipe" v-on="on" v-bind="attrs">mdi-minus</v-icon>
             </template>
             <span>Remove</span>
           </v-tooltip>
@@ -90,7 +90,7 @@
     justify-content: space-between;
   }
 
-  .active {
+  .action-icon.active {
     color: #ff9400;
   }
 
@@ -113,7 +113,7 @@
     background-color: #90A4AE;
   }
 
-  .icon {
+  .action-icon {
     font-size: 3rem;
     color: #fff;
   }
